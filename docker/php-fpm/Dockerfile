@@ -7,12 +7,12 @@ RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
 ARG PUID=1000
 ARG PGID=1000
 
-RUN apk --no-cache add shadow && \
-    groupmod -o -g ${PGID} www-data && \
-    usermod -o -u ${PUID} -g www-data www-data \
+RUN apk update && apk --no-cache add shadow && \
+    groupmod -g ${PGID} www-data && \
+    usermod -u ${PUID} -g www-data www-data
 
 # Source code
-COPY ./ /var/www
+COPY . /var/www
 WORKDIR /var/www
 
 # Composer
